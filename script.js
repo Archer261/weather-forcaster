@@ -6,9 +6,11 @@ var city = 'Chicago';
 var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}`
 var searchBtn = $("#search");
 
+
+
 // DOM Elements
 const cityHistory = $('#city-history');
-
+var mainCard = $('#main-card')
 
 // Utilities
 function formatDate(date) {
@@ -66,13 +68,25 @@ async function convertCity() {
 // Create 5 Day forcast cards
 async function createWeekForcast() {
     var data = await convertCity();
-    console.log(data);
-    for (var i = 0; i < data.length; i++) {
+
+    var mainCardDate = $(`<h5 class="card-title"> ${formatDate(data[0].dt_txt)}</h5><img src="http://openweathermap.org/img/wn/${data[0].weather[0].icon}@2x.png"/>`);
+    var mainCardTemp = $(`<p class="card-text">Temp: ${data[0].main.temp} °F</p>`);
+    var mainCardWind = $(`<p class="card-text">Wind: ${data[0].wind.speed} MPH</p>`);
+    var mainCardHumidity = $(`<p class="card-text">Humidity: ${data[0].main.humidity}%</p>`);
+
+    mainCard.append(mainCardDate);
+    mainCard.append(mainCardTemp);
+    mainCard.append(mainCardWind);
+    mainCard.append(mainCardHumidity);
+
+
+    for (var i = 1; i < data.length; i++) {
         var cardRow = $('#forcast-cards');
         var cardCol = $(`<div class="col"></div>`)
-        var cardH = $(`<div class="card h-100"></div>`)
+        var cardH = $(`<div class="card h-90 bg-dark text-white"></div>`)
         var cardBody = $(`<div class="card-body"></div>`)
         let cDate = $(`<h5 class="card-title">${formatDate(data[i].dt_txt)}</h5>`)
+        let cIcon = $(`<img src="http://openweathermap.org/img/wn/${data[i].weather[0].icon}@2x.png"/>`)
         let cTemp = $(`<p class="card-text">Temp: ${data[i].main.temp} °F</p>`)
         let cWind = $(`<p class="card-text">Wind: ${data[i].wind.speed} MPH</p>`)
         let cHumidity = $(`<p class="card-text">Humidity: ${data[i].main.humidity}%</p>`)
@@ -82,7 +96,7 @@ async function createWeekForcast() {
         cardCol.append(cardH);
         cardH.append(cardBody)
         cardBody.append(cDate);
-        // cardBody.appendChild(cIcon);
+        cardBody.append(cIcon);
         cardBody.append(cTemp);
         cardBody.append(cWind);
         cardBody.append(cHumidity);
