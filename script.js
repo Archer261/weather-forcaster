@@ -39,7 +39,15 @@ async function convertCity() {
         }))
     return fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}`)
         .then((response) => response.json())
-        .then((weekData) => console.log(weekData.list));
+        .then((weekData) => {
+            let currentDate = moment().format("DD") - 1;
+            weekData.list.forEach((obj) => {
+                if (moment(obj.dt_txt).format("DD") > currentDate) {
+                    currentDate = moment(obj.dt_txt).format("DD");
+                    createWeekForcast(obj.dt_txt, obj.main.temp, obj.wind.speed, obj.main.humidity);
+                }
+            })
+        });
 }
 
 // Create 5 Day forcast cards
