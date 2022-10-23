@@ -4,6 +4,9 @@ var APIKey = '0921cf8315a06211d5c903665ccab12f';
 // API Call Variables
 var city = 'Chicago';
 var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}`
+var searchBtn = document.getElementById("search");
+
+// searchBtn.addEventListener("click",)
 
 function getForecastData() {
     // Convert city name to lat and lon
