@@ -1,15 +1,13 @@
-.content {
-    display: flex;
-
+.bg-gradient {
+    background-image: var(--bs-gradient);
 }
 
-.navbar {
+.content {
     display: flex;
-    margin: 5px;
 }
 
 .sidebar {
-    display: flex;
+
     margin: 5px;
 
 }
@@ -17,11 +15,6 @@
 .main {
     display: flex;
     flex-direction: column;
-    margin: 5px;
-}
-
-.week {
-    display: flex;
     margin: 5px;
 }
 
